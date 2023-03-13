@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="calendar"></div>
+</body>
+<script>
+  function createCalendar(elem, year, month) {
+
+    let mm = month - 1;
+    let date = new Date(year, mm);
+
+    let table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+
+    for (let i = 0; i < getDay(date); i++) {
+      table += '<td></td>';
+    }
+
+    while (date.getMonth() == mm) {
+      table += '<td>' + date.getDate() + '</td>';
+
+      if (getDay(date) % 7 == 6) {
+        table += '</tr><tr>';
+      }
+
+      date.setDate(date.getDate() + 1);
+    }
+
+    if (getDay(date) != 0) {
+      for (let i = getDay(date); i < 7; i++) {
+        table += '<td></td>';
+      }
+    }
+
+    table += '</tr></table>';
+
+    elem.innerHTML = table;
+  }
+
+  function getDay(date) {
+    let day = date.getDay();
+    if (day === 0) day = 7;
+    return day - 1;
+  }
+
+  createCalendar(calendar, 2012, 9);
+</script>
+
+</html>
